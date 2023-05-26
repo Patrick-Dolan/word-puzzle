@@ -1,18 +1,21 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace WordPuzzle.Models
 {
   public class Puzzle
   {
-    public string Answer { get; set; }
-    // Random Word
+    public string Solution { get; set; }
+    public List<char> SolutionArr { get; set; }
+
     public Puzzle()
     {
-      Answer = this.AssignAnswer();
+      Solution = this.AssignSolution();
+      SolutionArr = Solution.ToCharArray().ToList();
     }
 
-    private string AssignAnswer()
+    private string AssignSolution()
     {
       // Random word count: 25
       List<string> randomWordList = new List<string>

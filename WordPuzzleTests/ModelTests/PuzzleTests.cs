@@ -16,7 +16,7 @@ namespace WordPuzzle.Tests
     }
 
     [TestMethod]
-    public void AssignAnswer_AssignAnswerToPuzzleObject_Void()
+    public void AssignSolution_AssignSolutionToPuzzleObject_Void()
     {
       // Arrange
       List<string> randomWordList = new List<string>
@@ -28,9 +28,9 @@ namespace WordPuzzle.Tests
       };
       Puzzle newPuzzle = new Puzzle();
       bool result = false;
-      // Check if newPuzzle answer is included in possible words list
+      // Check if newPuzzle solution is included in possible words list
       randomWordList.ForEach((e) => {
-        if (e == newPuzzle.Answer)
+        if (e == newPuzzle.Solution)
         {
           result = true;
         }
