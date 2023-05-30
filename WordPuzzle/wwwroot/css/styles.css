@@ -1,0 +1,19 @@
+#puzzle-block {
+  height: 100%;
+  width: 100%;
+  display: block;
+  /* border: 2px solid red; */
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+  gap: .25em;
+  margin-bottom: .25em;
+}
+
+.letter-box {
+  height: 4em;
+  width: 4em;
+  border: 2px solid grey;
+}
