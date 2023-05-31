@@ -31,5 +31,11 @@ namespace WordPuzzle.Models
       int randomNumber = random.Next(0, 25);
       return randomWordList[randomNumber];
     }
+
+    public bool MakeGuess(string guess)
+    {
+      string lowercasedGuess = guess.ToLower();
+      return lowercasedGuess == Solution;
+    }
   }
 }
