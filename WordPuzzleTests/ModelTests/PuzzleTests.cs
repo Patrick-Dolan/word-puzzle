@@ -27,14 +27,37 @@ namespace WordPuzzle.Tests
         "yacht"
       };
       Puzzle newPuzzle = new Puzzle();
-      bool result = false;
-      // Check if newPuzzle solution is included in possible words list
-      randomWordList.ForEach((e) => {
-        if (e == newPuzzle.Solution)
-        {
-          result = true;
-        }
-      });
+
+      // Act
+      bool result = randomWordList.Contains(newPuzzle.Solution);
+
+      // Assert
+      Assert.AreEqual(true, result);
+    }
+
+    [TestMethod]
+    public void MakeGuess_ReturnFalseIfGuessIsWrong_False()
+    {
+      // Arrange
+      Puzzle newPuzzle = new Puzzle();
+      string guess = "wrong";
+
+      // Act
+      bool result = newPuzzle.MakeGuess(guess);
+
+      // Assert
+      Assert.AreEqual(false, result);
+    }
+
+    [TestMethod]
+    public void MakeGuess_ReturnTrueIfGuessIsTrue_True()
+    {
+      // Arrange
+      Puzzle newPuzzle = new Puzzle();
+      string guess = newPuzzle.Solution;
+
+      // Act
+      bool result = newPuzzle.MakeGuess(guess);
 
       // Assert
       Assert.AreEqual(true, result);
