@@ -7,6 +7,7 @@ namespace WordPuzzle.Models
   public class Puzzle
   {
     public string Solution { get; set; }
+    public int NumberOfGuesses { get; set; } = 0;
     public List<char> SolutionArr { get; set; }
 
     public Puzzle()
@@ -34,6 +35,9 @@ namespace WordPuzzle.Models
 
     public bool MakeGuess(string guess)
     {
+      // Increase guess counter
+      NumberOfGuesses++;
+
       string lowercasedGuess = guess.ToLower();
       return lowercasedGuess == Solution;
     }

@@ -50,7 +50,7 @@ namespace WordPuzzle.Tests
     }
 
     [TestMethod]
-    public void MakeGuess_ReturnTrueIfGuessIsTrue_True()
+    public void MakeGuess_ReturnTrueIfGuessIsCorrect_True()
     {
       // Arrange
       Puzzle newPuzzle = new Puzzle();
@@ -61,6 +61,22 @@ namespace WordPuzzle.Tests
 
       // Assert
       Assert.AreEqual(true, result);
+    }
+
+    [TestMethod]
+    public void MakeGuess_MakeGuessIncreasesNumberOfGuessesCounter_Bool()
+    {
+      // Arrange
+      Puzzle newPuzzle = new Puzzle();
+      string guess = newPuzzle.Solution;
+      int numberOfGuesses = 1;
+      
+      // Act
+      bool guessBool = newPuzzle.MakeGuess(guess);
+      int result = newPuzzle.NumberOfGuesses;
+      
+      // Assert
+      Assert.AreEqual(numberOfGuesses, result);
     }
   }
 }
