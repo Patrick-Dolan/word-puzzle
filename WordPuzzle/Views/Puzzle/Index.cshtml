@@ -2,49 +2,24 @@
   Layout = "_Layout";
 }
 
-<h1>Puzzle Page</h1>
+<h1 class="text-center">Puzzle Page</h1>
 
 <div id="puzzle-block">
-  <div id="row1" class="row active">
-    <div id="row1-box1" class="letter-box"></div>
-    <div id="row1-box2" class="letter-box"></div>
-    <div id="row1-box3" class="letter-box"></div>
-    <div id="row1-box4" class="letter-box"></div>
-    <div id="row1-box5" class="letter-box"></div>
-  </div>
-  <div id="row2" class="row">
-    <div id="row2-box1" class="letter-box"></div>
-    <div id="row2-box2" class="letter-box"></div>
-    <div id="row2-box3" class="letter-box"></div>
-    <div id="row2-box4" class="letter-box"></div>
-    <div id="row2-box5" class="letter-box"></div>
-  </div>
-  <div id="row3" class="row">
-    <div id="row3-box1" class="letter-box"></div>
-    <div id="row3-box2" class="letter-box"></div>
-    <div id="row3-box3" class="letter-box"></div>
-    <div id="row3-box4" class="letter-box"></div>
-    <div id="row3-box5" class="letter-box"></div>
-  </div>
-  <div id="row4" class="row">
-    <div id="row4-box1" class="letter-box"></div>
-    <div id="row4-box2" class="letter-box"></div>
-    <div id="row4-box3" class="letter-box"></div>
-    <div id="row4-box4" class="letter-box"></div>
-    <div id="row4-box5" class="letter-box"></div>
-  </div>
-  <div id="row5" class="row">
-    <div id="row5-box1" class="letter-box"></div>
-    <div id="row5-box2" class="letter-box"></div>
-    <div id="row5-box3" class="letter-box"></div>
-    <div id="row5-box4" class="letter-box"></div>
-    <div id="row5-box5" class="letter-box"></div>
-  </div>
-  <div id="row6" class="row">
-    <div id="row6-box1" class="letter-box"></div>
-    <div id="row6-box2" class="letter-box"></div>
-    <div id="row6-box3" class="letter-box"></div>
-    <div id="row6-box4" class="letter-box"></div>
-    <div id="row6-box5" class="letter-box"></div>
-  </div>
+  @for (int i = 1; i < 7; i++)
+  {
+    <div id=@($"row{i}") class="row">
+      @for (int j = 1; j < 6; j++ ) 
+      {
+        <div id=@($"row{i}-box{j}") class="letter-box"></div>
+      }
+    </div>
+  }
+</div>
+
+<div id="form-block">
+  <form action="/" method="post">
+    <label for="userAnswer"></label>
+    <input id="userAnswer" class="form-control-lg" placeholder="Guess" type="text" maxlength="5" pattern="[A-Za-z]{5}">
+    <button type="submit" class="btn btn-primary btn-block mt-1" disabled>MAKE GUESS</button>
+  </form>
 </div>
