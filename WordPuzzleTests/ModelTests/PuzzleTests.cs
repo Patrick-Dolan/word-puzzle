@@ -65,5 +65,23 @@ namespace WordPuzzle.Tests
       // Assert
       Assert.AreEqual(numberOfGuesses, result);
     }
+
+    [TestMethod]
+    public void MakeGuess_SetGameOverToTrueWhenNumberOfGuessesReachesMaximumNumberOfGuesses_Void()
+    {
+      // Arrange 
+      Puzzle newPuzzle = new Puzzle();
+      string wrongGuess = "aaaaa";
+
+      // Act
+      for ( int i = 0; i <= newPuzzle.MaximumNumberOfGuesses - 1; i++)
+      {
+        newPuzzle.MakeGuess(wrongGuess);
+      }
+      bool result = newPuzzle.GameOver;
+
+      // Assert
+      Assert.AreEqual(true, result);
+    }
   }
 }

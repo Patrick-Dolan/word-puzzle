@@ -8,6 +8,8 @@ namespace WordPuzzle.Models
   {
     public string Solution { get; set; }
     public int NumberOfGuesses { get; set; } = 0;
+    public int MaximumNumberOfGuesses { get; } = 6;
+    public bool GameOver { get; set; }
     public bool Win { get; set; }
     public List<char> SolutionArr { get; set; }
 
@@ -43,6 +45,12 @@ namespace WordPuzzle.Models
       if (lowercasedGuess == Solution)
       {
         Win = true;
+        GameOver = true;
+      }
+
+      if (NumberOfGuesses >= MaximumNumberOfGuesses)
+      {
+        GameOver = true;
       }
     }
   }
