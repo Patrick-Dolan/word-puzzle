@@ -8,6 +8,7 @@ namespace WordPuzzle.Models
   {
     public string Solution { get; set; }
     public int NumberOfGuesses { get; set; } = 0;
+    public bool Win { get; set; }
     public List<char> SolutionArr { get; set; }
 
     public Puzzle()
@@ -33,13 +34,16 @@ namespace WordPuzzle.Models
       return randomWordList[randomNumber];
     }
 
-    public bool MakeGuess(string guess)
+    public void MakeGuess(string guess)
     {
       // Increase guess counter
       NumberOfGuesses++;
-
+      
       string lowercasedGuess = guess.ToLower();
-      return lowercasedGuess == Solution;
+      if (lowercasedGuess == Solution)
+      {
+        Win = true;
+      }
     }
   }
 }

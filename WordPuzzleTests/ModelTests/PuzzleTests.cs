@@ -36,28 +36,15 @@ namespace WordPuzzle.Tests
     }
 
     [TestMethod]
-    public void MakeGuess_ReturnFalseIfGuessIsWrong_False()
-    {
-      // Arrange
-      Puzzle newPuzzle = new Puzzle();
-      string guess = "wrong";
-
-      // Act
-      bool result = newPuzzle.MakeGuess(guess);
-
-      // Assert
-      Assert.AreEqual(false, result);
-    }
-
-    [TestMethod]
-    public void MakeGuess_ReturnTrueIfGuessIsCorrect_True()
+    public void MakeGuess_SetWinToTrueIfGuessIsCorrect_Void()
     {
       // Arrange
       Puzzle newPuzzle = new Puzzle();
       string guess = newPuzzle.Solution;
 
       // Act
-      bool result = newPuzzle.MakeGuess(guess);
+      newPuzzle.MakeGuess(guess);
+      bool result = newPuzzle.Win;
 
       // Assert
       Assert.AreEqual(true, result);
@@ -72,7 +59,7 @@ namespace WordPuzzle.Tests
       int numberOfGuesses = 1;
       
       // Act
-      bool guessBool = newPuzzle.MakeGuess(guess);
+      newPuzzle.MakeGuess(guess);
       int result = newPuzzle.NumberOfGuesses;
       
       // Assert
