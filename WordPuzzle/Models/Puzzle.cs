@@ -13,11 +13,25 @@ namespace WordPuzzle.Models
     public bool Win { get; set; }
     public List<char> SolutionArr { get; set; }
     public List<List<char>> Guesses { get; set; } = new List<List<char>>();
+    public int Id { get; }
+    public static List<Puzzle> _instances = new List<Puzzle>();
 
     public Puzzle()
     {
       Solution = this.AssignSolution();
       SolutionArr = Solution.ToCharArray().ToList();
+      _instances.Add(this);
+      Id = _instances.Count;
+    }
+
+    public static void ClearAll()
+    {
+      _instances.Clear();
+    }
+
+    public static Puzzle Find(int searchId)
+    {
+      return _instances[searchId - 1];
     }
 
     private string AssignSolution()

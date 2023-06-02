@@ -6,13 +6,32 @@ using WordPuzzle.Models;
 namespace WordPuzzle.Tests
 {
   [TestClass]
-  public class PuzzleTests 
+  public class PuzzleTests : IDisposable
   {
+    public void Dispose()
+    {
+      Puzzle.ClearAll();
+    }
+
     [TestMethod]
     public void Puzzle_CreatesInstanceOfPuzzle_Puzzle()
     {
       Puzzle newPuzzle = new Puzzle();
       Assert.AreEqual(typeof(Puzzle), newPuzzle.GetType());
+    }
+
+    [TestMethod]
+    public void Find_FindAndReturnPuzzle_Puzzle()
+    {
+      // Arrange
+      Puzzle newPuzzle1 = new Puzzle();
+      Puzzle newPuzzle2 = new Puzzle();
+
+      // Act
+      Puzzle result = Puzzle.Find(2);
+
+      // Assert
+      Assert.AreEqual(newPuzzle2, result);
     }
 
     [TestMethod]
