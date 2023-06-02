@@ -12,6 +12,7 @@ namespace WordPuzzle.Models
     public bool GameOver { get; set; }
     public bool Win { get; set; }
     public List<char> SolutionArr { get; set; }
+    public List<List<char>> Guesses { get; set; } = new List<List<char>>();
 
     public Puzzle()
     {
@@ -40,8 +41,11 @@ namespace WordPuzzle.Models
     {
       // Increase guess counter
       NumberOfGuesses++;
-      
+
+      // Add guess to list of guesses
       string lowercasedGuess = guess.ToLower();
+      Guesses.Add(lowercasedGuess.ToCharArray().ToList());
+
       if (lowercasedGuess == Solution)
       {
         Win = true;

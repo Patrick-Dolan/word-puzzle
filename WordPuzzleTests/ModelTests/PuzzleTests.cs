@@ -83,5 +83,37 @@ namespace WordPuzzle.Tests
       // Assert
       Assert.AreEqual(true, result);
     }
+
+    [TestMethod]
+    public void MakeGuess_AddNewGuessToListOfGuesses_Void()
+    {
+      // Arrange 
+      Puzzle newPuzzle = new Puzzle();
+      string guess = "aaaaa";
+      List<char> guessList = new List<char> { 'a', 'a', 'a', 'a', 'a' };
+
+      // Act
+      newPuzzle.MakeGuess(guess);
+      List<char> result = newPuzzle.Guesses[0];
+
+      // Assert
+      CollectionAssert.AreEqual(guessList, result);
+    }
+
+    [TestMethod]
+    public void MakeGuess_SaveMultipleNewGuessToListOfGuesses_Void()
+    {
+      // Arrange 
+      Puzzle newPuzzle = new Puzzle();
+      string guess = "aaaaa";
+
+      // Act
+      newPuzzle.MakeGuess(guess);
+      newPuzzle.MakeGuess(guess);
+      int result = newPuzzle.Guesses.Count;
+
+      // Assert
+      Assert.AreEqual(2, result);
+    }
   }
 }
