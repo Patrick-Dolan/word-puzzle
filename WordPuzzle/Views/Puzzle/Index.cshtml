@@ -3,23 +3,51 @@
 }
 
 <h1 class="text-center">Puzzle Page</h1>
+<a href="/">Home</a>
 
 <div id="puzzle-block">
-  @for (int i = 1; i < 7; i++)
+  @for (int i = 0; i < 6; i++)
   {
     <div id=@($"row{i}") class="row">
-      @for (int j = 1; j < 6; j++ ) 
+      @for (int j = 0; j < 5; j++ ) 
       {
-        <div id=@($"row{i}-box{j}") class="letter-box"></div>
+        @if (@Model.Guesses.Count > i)
+        {
+          @if (@Model.Solution.Contains(@Model.Guesses[i][j]) && @Model.SolutionArr[j] == @Model.Guesses[i][j])
+          {
+            <div id=@($"row{i}-box{j}") class="letter-box bg-success">
+              <p class="letter-display text-center">@Model.Guesses[i][j]</p>
+            </div>
+          }
+          else if (@Model.Solution.Contains(@Model.Guesses[i][j]))
+          {
+            <div id=@($"row{i}-box{j}") class="letter-box bg-warning">
+              <p class="letter-display text-center">@Model.Guesses[i][j]</p>
+            </div>
+          }
+          else
+          {
+            <div id=@($"row{i}-box{j}") class="letter-box">
+              <p class="letter-display text-center">@Model.Guesses[i][j]</p>
+            </div>
+          }
+        }
+        else
+        {
+          <div id=@($"row{i}-box{j}") class="letter-box">
+            <p class="letter-display"></p>
+          </div>
+        }
       }
     </div>
   }
 </div>
 
 <div id="form-block">
-  <form action="/" method="post">
-    <label for="userAnswer"></label>
-    <input id="userAnswer" class="form-control-lg" placeholder="Guess" type="text" maxlength="5" pattern="[A-Za-z]{5}">
-    <button type="submit" class="btn btn-primary btn-block mt-1" disabled>MAKE GUESS</button>
+  <form action="/puzzle" method="post">
+    <input type="hidden" id="searchId" name="searchId" value="@Model.Id">
+    <label for="userGuess"></label>
+    <input id="userGuess" name="userGuess" class="form-control-lg" placeholder="Guess" type="text" maxlength="5" pattern="[A-Za-z]{5}">
+    <button type="submit" class="btn btn-primary btn-block mt-1">MAKE GUESS</button>
   </form>
 </div>
