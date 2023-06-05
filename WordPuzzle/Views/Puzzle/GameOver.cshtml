@@ -1,0 +1,19 @@
+@{
+  Layout = "_Layout";
+}
+
+@using WordPuzzle.Models
+
+@if (@Model.Win)
+{
+  <h1>You Win</h1>
+  <p>You guessed the word which was: <strong>@Model.Solution</strong></p>
+}
+else
+{
+  <h1>You Lose</h1>
+  <p>The word was: <strong>@Model.Solution</strong></p>
+  <p></p>
+}
+
+<a href="/puzzle">New Game</a>
