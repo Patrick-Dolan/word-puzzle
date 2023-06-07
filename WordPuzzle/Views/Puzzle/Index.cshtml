@@ -1,5 +1,51 @@
 @{
   Layout = "_Layout";
+  int numberOfLetterOccurences = 0;
+  int occurencesBeforeIndex = 0;
+}
+
+@functions{
+  public int TotalNumberOfOccurences(List<char> letterList, char targetLetter)
+  {
+    int count = 0;
+    foreach (char letter in letterList)
+    {
+      if (letter == targetLetter)
+      {
+        count++;
+      }
+    }
+    return count;
+  }
+
+  public int CountLetterOccurencesBeforeIndex(List<char> letterList, char targetLetter, int cutOffIndex)
+  {
+    int count = 0;
+    List<char> listUpToIndex = letterList.GetRange(0, cutOffIndex);
+    for (int i = 0; i < listUpToIndex.Count; i++)
+    {
+      if (listUpToIndex[i] == targetLetter)
+      {
+        count++;
+      }
+    }
+    return count;
+  }
+
+  public bool GuessInCorrectPosition(List<char> guessList, List<char> solutionList, char targetChar, int numberOfTargetLetterOccurences)
+  {
+    int occurenceCounter = 0;
+    for (int i = 0; i < solutionList.Count; i++)
+    {
+      if (guessList[i] == targetChar && solutionList[i] == targetChar && numberOfTargetLetterOccurences == occurenceCounter)
+      {
+        return true;
+      } else if (guessList[i] == targetChar && solutionList[i] == targetChar) {
+        occurenceCounter++;
+      }
+    }
+    return false;
+  }
 }
 
 <h1 class="text-center">Puzzle Page</h1>
@@ -13,13 +59,15 @@
       {
         @if (@Model.Guesses.Count > i)
         {
-          @if (@Model.Solution.Contains(@Model.Guesses[i][j]) && @Model.SolutionArr[j] == @Model.Guesses[i][j])
+          numberOfLetterOccurences = TotalNumberOfOccurences(@Model.SolutionArr, @Model.Guesses[i][j]);
+          occurencesBeforeIndex = CountLetterOccurencesBeforeIndex(@Model.Guesses[i], @Model.Guesses[i][j], j);
+          @if (@Model.SolutionArr[j] == @Model.Guesses[i][j])
           {
             <div id=@($"row{i}-box{j}") class="letter-box bg-success">
               <p class="letter-display text-center">@Model.Guesses[i][j]</p>
             </div>
           }
-          else if (@Model.Solution.Contains(@Model.Guesses[i][j]))
+          else if (@Model.SolutionArr.Contains(@Model.Guesses[i][j]) && numberOfLetterOccurences > occurencesBeforeIndex && !GuessInCorrectPosition(@Model.Guesses[i], @Model.SolutionArr, @Model.Guesses[i][j], numberOfLetterOccurences))
           {
             <div id=@($"row{i}-box{j}") class="letter-box bg-warning">
               <p class="letter-display text-center">@Model.Guesses[i][j]</p>
@@ -47,7 +95,7 @@
   <form action="/puzzle" method="post">
     <input type="hidden" id="searchId" name="searchId" value="@Model.Id">
     <label for="userGuess"></label>
-    <input id="userGuess" name="userGuess" class="form-control-lg" placeholder="Guess" type="text" maxlength="5" pattern="[A-Za-z]{5}">
+    <input id="userGuess" name="userGuess" class="form-control-lg" placeholder="Guess" type="text" maxlength="5" pattern="[A-Za-z]{5}" autofocus>
     <button type="submit" class="btn btn-primary btn-block mt-1">MAKE GUESS</button>
   </form>
 </div>
