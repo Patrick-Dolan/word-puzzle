@@ -1,12 +1,19 @@
+body {
+  background-color: #121213;
+}
+
+h1 {
+  color: white;
+}
+
 #puzzle-block {
   height: 100%;
   width: 100%;
   display: block;
-  /* border: 2px solid red; */
 }
 
 form {
-  width: 50%;
+  width: 75%;
   margin: auto;
 }
 
@@ -15,14 +22,23 @@ input {
 }
 
 .row {
-  display: flex;
   justify-content: center;
   gap: .25em;
   margin-bottom: .25em;
+  align-items: center;
+  justify-content: center;
 }
 
 .letter-box {
-  height: 4em;
-  width: 4em;
+  min-height: 3.75em;
+  min-width: 3.75em;
   border: 2px solid grey;
+}
+
+.letter-display {
+  font-size: 2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: white;
+  margin-bottom: 0;
 }
