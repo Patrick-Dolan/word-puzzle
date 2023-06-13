@@ -134,5 +134,100 @@ namespace WordPuzzle.Tests
       // Assert
       Assert.AreEqual(2, result);
     }
+
+    [TestMethod]
+    public void SetUpGuessIndicators_MarkListIndicesAsCorrectWhenGuessMatchesSolution_Void()
+    {
+      // Arrange
+      Puzzle newPuzzle = new Puzzle();
+      string guess = "mmmam";
+      newPuzzle.Solution = "break";
+      
+      // Act
+      newPuzzle.SetUpGuessIndicators(guess);
+      List<string> expectedResult = new List<string> {"wrong", "wrong", "wrong", "correct", "wrong"};
+      List<string> result = newPuzzle.GuessIndicators[0];
+
+      // Assert
+      CollectionAssert.AreEqual(expectedResult, result);
+    }
+
+    [TestMethod]
+    public void SetUpGuessIndicators_MarkListIndicesAsCorrectLetterWrongPositionAppropriately_Void()
+    {
+      // Arrange
+      Puzzle newPuzzle = new Puzzle();
+      string guess = "mammm";
+      newPuzzle.Solution = "break";
+      
+      // Act
+      newPuzzle.SetUpGuessIndicators(guess);
+      List<string> expectedResult = new List<string> {"wrong", "correct-letter-wrong-position", "wrong", "wrong", "wrong"};
+      List<string> result = newPuzzle.GuessIndicators[0];
+
+      // Assert
+      CollectionAssert.AreEqual(expectedResult, result);
+    }
+
+    [TestMethod]
+    public void SetUpGuessIndicators_MarkListIndicesAsCorrectAndCorrectLetterWrongPosition_Void()
+    {
+      // Arrange
+      Puzzle newPuzzle = new Puzzle();
+      string guess = "smack";
+      newPuzzle.Solution = "break";
+      
+      // Act
+      newPuzzle.SetUpGuessIndicators(guess);
+      List<string> expectedResult = new List<string> {"wrong", "wrong", "correct-letter-wrong-position", "wrong", "correct"};
+      List<string> result = newPuzzle.GuessIndicators[0];
+
+      // Assert
+      CollectionAssert.AreEqual(expectedResult, result);
+    }
+
+    [TestMethod]
+    public void SetUpGuessIndicators_OnlyIncludeNumberOfRepeatedLettersAsManyTimesAsItAppearsInSolution_Void()
+    {
+      // Arrange
+      Puzzle newPuzzle = new Puzzle();
+      string guess = "aaamm";
+      newPuzzle.Solution = "breaa";
+      
+      // Act
+      newPuzzle.SetUpGuessIndicators(guess);
+      List<string> expectedResult = new List<string> {"correct-letter-wrong-position", "correct-letter-wrong-position", "wrong", "wrong", "wrong"};
+      List<string> result = newPuzzle.GuessIndicators[0];
+
+      foreach (string letter in result)
+      {
+        Console.WriteLine(letter);
+      }
+
+      // Assert
+      CollectionAssert.AreEqual(expectedResult, result);
+    }
+
+    [TestMethod]
+    public void SetUpGuessIndicators_MarkDuplicateLettersOnlyAsManyTimesAsTheyShowEvenWhenOneIsCorrectlyPositioned_Void()
+    {
+      // Arrange
+      Puzzle newPuzzle = new Puzzle();
+      string guess = "aamam";
+      newPuzzle.Solution = "breaa";
+      
+      // Act
+      newPuzzle.SetUpGuessIndicators(guess);
+      List<string> expectedResult = new List<string> {"correct-letter-wrong-position", "wrong", "wrong", "correct", "wrong"};
+      List<string> result = newPuzzle.GuessIndicators[0];
+
+      foreach (string letter in result)
+      {
+        Console.WriteLine(letter);
+      }
+
+      // Assert
+      CollectionAssert.AreEqual(expectedResult, result);
+    }
   }
 }
