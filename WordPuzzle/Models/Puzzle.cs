@@ -54,74 +54,46 @@ namespace WordPuzzle.Models
 
       // Generate random index number for list
       Random random = new Random();
-      int randomNumber = random.Next(0, 25);
+      int randomNumber = random.Next(0, randomWordList.Count);
       return randomWordList[randomNumber];
     }
 
     public void SetUpGuessIndicators(string guess)
     {
-      List<char> guessList = guess.ToCharArray().ToList();
-      List<char> solutionList = Solution.ToCharArray().ToList();
-      Dictionary<char, int> solutionLetterCounts = new Dictionary<char, int>();
-      Dictionary<char, int> guessLetterCounts = new Dictionary<char, int>();
+      Dictionary<char, int> count = new Dictionary<char, int>();
+      List<string> result = new List<string> { "wrong", "wrong", "wrong", "wrong", "wrong" };
 
-      // Count each letter in solution list
-      for (int i = 0; i < solutionList.Count; i++)
+      for (int i = 0; i < guess.Length; i++)
       {
-        if (!solutionLetterCounts.ContainsKey(solutionList[i]))
+        if (Solution[i] == guess[i])
         {
-          solutionLetterCounts.Add(solutionList[i], 0);
+          result[i] = "correct";
         }
-
-        int count = 0;
-        for (int j = 0; j < solutionList.Count; j++)
+        else
         {
-          if (solutionList[i] == solutionList[j])
+          if (count.ContainsKey(Solution[i]))
           {
-            count++;
+            count[Solution[i]]++;
           }
-        }
-        solutionLetterCounts[solutionList[i]] = count;
-      }
-
-      // Count each letter in guess list
-      for (int i = 0; i < guessList.Count; i++)
-      {
-        if (!guessLetterCounts.ContainsKey(guessList[i]))
-        {
-          guessLetterCounts.Add(guessList[i], 0);
-        }
-
-        int count = 0;
-        for (int j = 0; j < guessList.Count; j++)
-        {
-          if (guessList[i] == guessList[j] && guessList[j] != solutionList[j])
+          else
           {
-            count++;
-          }
-        }
-        guessLetterCounts[guessList[i]] = count;
-      }
-
-      // Find correct letters
-      List<string> tempGuessIndicators = new List<string> { "wrong", "wrong", "wrong", "wrong", "wrong" };
-      for (int i = 0; i < tempGuessIndicators.Count; i++)
-      {
-        if (solutionList[i] == guessList[i])
-        {
-          tempGuessIndicators[i] = "correct";
-        } 
-        else if (solutionList.Contains(guessList[i]) && tempGuessIndicators[i] != "correct")
-        {
-          if (guessLetterCounts[guessList[i]] >= solutionLetterCounts[guessList[i]])
-          {
-            solutionLetterCounts[guessList[i]]++;
-            tempGuessIndicators[i] = "correct-letter-wrong-position";
+            count[Solution[i]] = 1;
           }
         }
       }
 
-      GuessIndicators[NumberOfGuesses] = tempGuessIndicators;
+      for (int i = 0; i < guess.Length; i++)
+      {
+        if (Solution[i] == guess[i] || !count.ContainsKey(guess[i]) || count[guess[i]] == 0)
+        {
+          continue;
+        }
+
+        count[guess[i]]--;
+        result[i] = "correct-letter-wrong-position";
+      }
+
+      GuessIndicators[NumberOfGuesses] = result;
     }
 
     public void MakeGuess(string guess)
@@ -129,6 +101,7 @@ namespace WordPuzzle.Models
       // Add guess to list of guesses
       string lowercasedGuess = guess.ToLower();
       Guesses.Add(lowercasedGuess.ToCharArray().ToList());
+      this.SetUpGuessIndicators(lowercasedGuess);
 
       // Increase guess counter
       NumberOfGuesses++;

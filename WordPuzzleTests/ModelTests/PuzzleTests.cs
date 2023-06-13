@@ -182,6 +182,11 @@ namespace WordPuzzle.Tests
       List<string> expectedResult = new List<string> {"wrong", "wrong", "correct-letter-wrong-position", "wrong", "correct"};
       List<string> result = newPuzzle.GuessIndicators[0];
 
+      foreach (string indicator in result)
+      {
+        Console.WriteLine(indicator);
+      }
+
       // Assert
       CollectionAssert.AreEqual(expectedResult, result);
     }
