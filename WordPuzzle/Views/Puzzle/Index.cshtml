@@ -1,73 +1,25 @@
 @{
   Layout = "_Layout";
-  int numberOfLetterOccurences = 0;
-  int occurencesBeforeIndex = 0;
-}
-
-@functions{
-  public int TotalNumberOfOccurences(List<char> letterList, char targetLetter)
-  {
-    int count = 0;
-    foreach (char letter in letterList)
-    {
-      if (letter == targetLetter)
-      {
-        count++;
-      }
-    }
-    return count;
-  }
-
-  public int CountLetterOccurencesBeforeIndex(List<char> letterList, char targetLetter, int cutOffIndex)
-  {
-    int count = 0;
-    List<char> listUpToIndex = letterList.GetRange(0, cutOffIndex);
-    for (int i = 0; i < listUpToIndex.Count; i++)
-    {
-      if (listUpToIndex[i] == targetLetter)
-      {
-        count++;
-      }
-    }
-    return count;
-  }
-
-  public bool GuessInCorrectPosition(List<char> guessList, List<char> solutionList, char targetChar, int numberOfTargetLetterOccurences)
-  {
-    int occurenceCounter = 0;
-    for (int i = 0; i < solutionList.Count; i++)
-    {
-      if (guessList[i] == targetChar && solutionList[i] == targetChar && numberOfTargetLetterOccurences == occurenceCounter)
-      {
-        return true;
-      } else if (guessList[i] == targetChar && solutionList[i] == targetChar) {
-        occurenceCounter++;
-      }
-    }
-    return false;
-  }
 }
 
 <h1 class="text-center">Puzzle Page</h1>
 <a href="/">Home</a>
 
 <div id="puzzle-block">
-  @for (int i = 0; i < 6; i++)
+  @for (int i = 0; i < @Model.GuessIndicators.Count; i++)
   {
     <div id=@($"row{i}") class="row">
-      @for (int j = 0; j < 5; j++ ) 
+      @for (int j = 0; j < @Model.GuessIndicators[i].Count; j++)
       {
-        @if (@Model.Guesses.Count > i)
+        if(@Model.Guesses.Count > i)
         {
-          numberOfLetterOccurences = TotalNumberOfOccurences(@Model.SolutionArr, @Model.Guesses[i][j]);
-          occurencesBeforeIndex = CountLetterOccurencesBeforeIndex(@Model.Guesses[i], @Model.Guesses[i][j], j);
-          @if (@Model.SolutionArr[j] == @Model.Guesses[i][j])
+          if (@Model.GuessIndicators[i][j] == "correct")
           {
             <div id=@($"row{i}-box{j}") class="letter-box bg-success">
               <p class="letter-display text-center">@Model.Guesses[i][j]</p>
             </div>
           }
-          else if (@Model.SolutionArr.Contains(@Model.Guesses[i][j]) && numberOfLetterOccurences > occurencesBeforeIndex && !GuessInCorrectPosition(@Model.Guesses[i], @Model.SolutionArr, @Model.Guesses[i][j], numberOfLetterOccurences))
+          else if (@Model.GuessIndicators[i][j] == "correct-letter-wrong-position")
           {
             <div id=@($"row{i}-box{j}") class="letter-box bg-warning">
               <p class="letter-display text-center">@Model.Guesses[i][j]</p>
@@ -83,7 +35,7 @@
         else
         {
           <div id=@($"row{i}-box{j}") class="letter-box">
-            <p class="letter-display"></p>
+            <p class="letter-display text-center"></p>
           </div>
         }
       }
