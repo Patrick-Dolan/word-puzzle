@@ -8,6 +8,7 @@
 
 * _HTML & CSS_
 * _.NET Core_
+* _C#_
 
 ## Description
 
@@ -15,16 +16,15 @@ _A word puzzle based on the game Wordle._
 
 ## Setup/Installation Requirements
 
-<!-- TODO add setup and installation requirements -->
-TO BE ADDED!
+* Clone or download repo to your computer.
+* Navigate to the folder you downloaded and open WordPuzzle directory.
+* Open the project with your code editor or terminal of choice.
+* Navigate into the WordPuzzle.Solution/WordPuzzle folder and run the following command: <br><code>dotnet run</code>
 
-<!-- * _This is a great place_
-* _to list setup instructions_
-* _in a simple_
-* _easy-to-understand_
-* _format_
+### Test Setup/Installation
 
-_{Leave nothing to chance! You want it to be easy for potential users, employers and collaborators to run your app. Do I need to run a server? How should I set up my databases? Is there other code this application depends on? We recommend deleting the project from your desktop, re-cloning the project from GitHub, and writing down all the steps necessary to get the project working again.}_ -->
+* Run tests by going to the test project in the terminal (WordPuzzle.Solution/WordPuzzle.Tests) and running the following command:  
+<code>dotnet test</code>  
 
 ## Known Bugs
 
