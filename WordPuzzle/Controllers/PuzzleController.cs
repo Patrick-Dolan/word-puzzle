@@ -10,11 +10,6 @@ namespace WordPuzzle.Controllers
     public ActionResult Index()
     {
       Puzzle newPuzzle = new Puzzle();
-      
-      // TODO REMOVE DEBUG TOOLS 
-      // =================================================
-      Console.WriteLine("Answer: " + newPuzzle.Solution);
-      // =================================================
 
       return View(newPuzzle);
     }
@@ -29,12 +24,6 @@ namespace WordPuzzle.Controllers
       }
       foundPuzzle.MakeGuess(userGuess);
 
-      // TODO REMOVE DEBUG TOOLS 
-      // =================================================
-      Console.WriteLine("User guess: " + userGuess);
-      Console.WriteLine("User guess count: " + foundPuzzle.NumberOfGuesses);
-      Console.WriteLine("User guess count from list: " + foundPuzzle.Guesses.Count);
-      // =================================================
       if (foundPuzzle.GameOver)
       {
         return RedirectToAction("GameOver", foundPuzzle);
