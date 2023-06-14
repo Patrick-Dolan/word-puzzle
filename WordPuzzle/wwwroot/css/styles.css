@@ -2,7 +2,7 @@ body {
   background-color: #121213;
 }
 
-h1 {
+h1, p {
   color: white;
 }
 
