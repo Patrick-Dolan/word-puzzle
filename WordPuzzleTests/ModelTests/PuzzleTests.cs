@@ -38,13 +38,8 @@ namespace WordPuzzle.Tests
     public void AssignSolution_AssignSolutionToPuzzleObject_Void()
     {
       // Arrange
-      List<string> randomWordList = new List<string>
-      {
-        "apple", "beach", "carve", "daisy", "eagle", "flame", "globe", "honey",
-        "image", "jolly", "knock", "lemon", "mango", "ninja", "olive", "piano",
-        "quack", "raven", "shark", "tulip", "umbra", "vivid", "waltz", "xenon",
-        "yacht"
-      };
+      WordList fullWordList = new WordList();
+      List<string> randomWordList = fullWordList.Words;
       Puzzle newPuzzle = new Puzzle();
 
       // Act

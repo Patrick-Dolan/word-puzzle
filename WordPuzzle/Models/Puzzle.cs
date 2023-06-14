@@ -43,19 +43,13 @@ namespace WordPuzzle.Models
 
     private string AssignSolution()
     {
-      // Random word count: 25
-      List<string> randomWordList = new List<string>
-      {
-        "apple", "beach", "carve", "daisy", "eagle", "flame", "globe", "honey",
-        "image", "jolly", "knock", "lemon", "mango", "ninja", "olive", "piano",
-        "quack", "raven", "shark", "tulip", "umbra", "vivid", "waltz", "xenon",
-        "yacht"
-      };
+      WordList fullWordList = new WordList();
+      List<string> wordList = fullWordList.Words;
 
       // Generate random index number for list
       Random random = new Random();
-      int randomNumber = random.Next(0, randomWordList.Count);
-      return randomWordList[randomNumber];
+      int randomNumber = random.Next(0, wordList.Count);
+      return wordList[randomNumber];
     }
 
     public void SetUpGuessIndicators(string guess)
